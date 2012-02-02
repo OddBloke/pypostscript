@@ -18,6 +18,13 @@ class TimesPlainFontTestCase(TestCase):
                          '23 scalefont\n'
                          'setfont\n')
 
+        times_plain_font = TimesPlainFont(size_pts=14)
+        self.assertEqual(times_plain_font.ps,
+                         '/Times-Roman findfont\n'
+                         '14 scalefont\n'
+                         'setfont\n')
+
+
     def test_times_plain_font_valitaion(self):
         """
         Bad size_pts in TimesPlainFont should raise error.
@@ -41,6 +48,12 @@ class TimesBoldFontTestCase(TestCase):
         self.assertEqual(times_bold_font.ps,
                          '/Times-Bold findfont\n'
                          '71 scalefont\n'
+                         'setfont\n')
+
+        times_bold_font = TimesBoldFont(size_pts=10)
+        self.assertEqual(times_bold_font.ps,
+                         '/Times-Bold findfont\n'
+                         '10 scalefont\n'
                          'setfont\n')
 
     def test_times_bold_font_valitaion(self):
@@ -68,6 +81,12 @@ class HelveticaPlainFontTestCase(TestCase):
                          '15 scalefont\n'
                          'setfont\n')
 
+        helv_plain_font = HelveticaPlainFont(size_pts=23)
+        self.assertEqual(helv_plain_font.ps,
+                         '/Helvetica findfont\n'
+                         '23 scalefont\n'
+                         'setfont\n')
+
     def test_helv_plain_font_valitaion(self):
         """
         Bad size_pts in HelveticaPlainFont should raise error.
@@ -91,6 +110,12 @@ class HelveticaBoldFontTestCase(TestCase):
         self.assertEqual(helv_bold_font.ps,
                          '/Helvetica-Bold findfont\n'
                          '8 scalefont\n'
+                         'setfont\n')
+
+        helv_bold_font = HelveticaBoldFont(size_pts=18)
+        self.assertEqual(helv_bold_font.ps,
+                         '/Helvetica-Bold findfont\n'
+                         '18 scalefont\n'
                          'setfont\n')
 
     def test_helv_bold_font_valitaion(self):
