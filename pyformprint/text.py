@@ -28,3 +28,11 @@ class TimesPlainFont(Font):
 
 class TimesBoldFont(Font):
     PS_FONT_NAME = 'Times-Bold'
+
+
+class HelveticaPlainFont(Font):
+    PS_FONT_NAME = 'Helvetica'
+
+
+class HelveticaBoldFont(Font):
+    PS_FONT_NAME = 'Helvetica-Bold'
