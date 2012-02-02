@@ -11,8 +11,8 @@ class RectangleTestCase(TestCase):
         Normal Rectangle should render correct ps.
 
         """
-        rectangle = Rectangle(x_pts=10, y_pts=40, width_pts=100, height_pts=120,
-                              line_width_pts=5)
+        rectangle = Rectangle(x_pts=10, y_pts=40, width_pts=100,
+                              height_pts=120, line_width_pts=5)
         self.assertEqual(rectangle.ps,
                          'newpath 10 40 moveto\n'
                          '100 0 rlineto\n'
@@ -97,13 +97,3 @@ class RectangleTestCase(TestCase):
                 width_pts=100,
                 height_pts=120,
                 line_width_pts=bad_line_width_pts)
-
-# Tests needed
-"""
-    ensure coordinates are sane, then subclass this
-
-    "document" which uses the .ps property of all components if required
-
-    "@uselib('barcodes')" should put the barcode lib into the top of the output
-    document
-"""
