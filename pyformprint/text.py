@@ -1,10 +1,12 @@
+from pyformprint.shapes import AllIntegerArgumentShape
+
+
 class Font(object):
+    """
+    Generic representation of a Times Roman font.
 
+    """
     def __init__(self, size_pts):
-        """
-        Generic representation of a Times Roman font.
-
-        """
         if not (isinstance(size_pts, int) and size_pts > 0):
             raise ValueError(size_pts)
 
@@ -36,3 +38,33 @@ class HelveticaPlainFont(Font):
 
 class HelveticaBoldFont(Font):
     PS_FONT_NAME = 'Helvetica-Bold'
+
+
+class TextLine(AllIntegerArgumentShape):
+    """
+    Generic representation of a line of text.
+
+    """
+    def __init__(self, x_pts, y_pts, font, text):
+        if not isinstance(font, Font):
+            raise ValueError(font)
+        if not isinstance(text, basestring):
+            raise ValueError(text)
+
+        super(TextLine, self).__init__(x_pts, y_pts)
+
+        self.x_pts, self.y_pts, self.font, self.text = \
+            x_pts, y_pts, font, text
+
+    @property
+    def ps(self):
+        """
+        PostScript string representation of this object.
+
+        """
+        return (self.font.ps +
+                    'newpath\n'
+                    '{x_pts} {y_pts} moveto\n'
+                    '({text}) show\n'.format(x_pts=self.x_pts,
+                                             y_pts=self.y_pts,
+                                             text=self.text))
