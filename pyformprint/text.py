@@ -1,16 +1,15 @@
 import re
 
-from pyformprint.shapes import AllIntegerArgumentShape
+from pyformprint import AllIntegerArgumentClass
 
 
-class Font(object):
+class Font(AllIntegerArgumentClass):
     """
     Generic representation of a Times Roman font.
 
     """
     def __init__(self, size_pts):
-        if not (isinstance(size_pts, int) and size_pts > 0):
-            raise ValueError(size_pts)
+        super(Font, self).__init__(size_pts)
 
         self.size_pts = size_pts
 
@@ -42,7 +41,7 @@ class HelveticaBoldFont(Font):
     PS_FONT_NAME = 'Helvetica-Bold'
 
 
-class TextLine(AllIntegerArgumentShape):
+class TextLine(AllIntegerArgumentClass):
     """
     Generic representation of a line of text.
 

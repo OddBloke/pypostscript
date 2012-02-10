@@ -1,15 +1,7 @@
-class AllIntegerArgumentShape(object):
-    """
-    A class which takes only integer arguments during init.
-
-    """
-    def __init__(self, *args):
-        for arg in args:
-            if not (isinstance(arg, int) and arg >= 0):
-                raise ValueError(arg)
+from pyformprint import AllIntegerArgumentClass
 
 
-class Circle(AllIntegerArgumentShape):
+class Circle(AllIntegerArgumentClass):
     """
     Generic representation of a circle.
 
@@ -35,7 +27,7 @@ class Circle(AllIntegerArgumentShape):
                                   line_width_pts=self.line_width_pts))
 
 
-class Rectangle(AllIntegerArgumentShape):
+class Rectangle(AllIntegerArgumentClass):
     """
     Generic representation of a rectangle.
 
