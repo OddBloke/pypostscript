@@ -1,3 +1,5 @@
+import re
+
 from pyformprint.shapes import AllIntegerArgumentShape
 
 
@@ -51,6 +53,11 @@ class TextLine(AllIntegerArgumentShape):
         if not isinstance(text, basestring):
             raise ValueError(text)
 
+        for char in text:
+            char_ord = ord(char)
+            if char_ord < 32 or char_ord > 127:
+                raise ValueError(char)
+
         super(TextLine, self).__init__(x_pts, y_pts)
 
         self.x_pts, self.y_pts, self.font, self.text = \
@@ -62,9 +69,10 @@ class TextLine(AllIntegerArgumentShape):
         PostScript string representation of this object.
 
         """
+        escaped_text = re.sub(r'([()])', r'\\\1', self.text)
         return (self.font.ps +
                     'newpath\n'
                     '{x_pts} {y_pts} moveto\n'
                     '({text}) show\n'.format(x_pts=self.x_pts,
                                              y_pts=self.y_pts,
-                                             text=self.text))
+                                             text=escaped_text))
