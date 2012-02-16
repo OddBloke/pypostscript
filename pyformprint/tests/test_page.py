@@ -57,15 +57,3 @@ class PageTestCase(TestCase):
                                                            circle_2,
                                                            rectangle_2,
                                                            text_line)]))
-
-# Tests needed
-"""
-    portrait / landscape layout
-
-    text box
-
-    "@uselib('barcodes')" should put the barcode lib into the top of the output
-    document
-
-
-"""
