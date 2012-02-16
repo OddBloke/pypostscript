@@ -119,24 +119,3 @@ class TextLineTestCase(TestCase):
                                  text=char)
             self.assertIn('({char}) show\n'.format(char=char),
                           text_line.ps)
-
-
-# Tests needed
-"""
-    Refactor the Font base to be an all-integer class
-
-    Inappropriate character sets in TextLine
-
-    TextBox object
-
-    Line wrapping awareness (Paragraph object)
-
-    Handle breaks in text - paragraph set or TextBox with Paragraphs in it
-
-    "document" which uses the .ps property of all components if required
-
-    "@uselib('barcodes')" should put the barcode lib into the top of the output
-    document
-
-    group all equivalent font/size combinations in the same block for document
-"""
