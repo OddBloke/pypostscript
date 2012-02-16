@@ -3,12 +3,12 @@ class Page(object):
     A single page of PostScript output.
 
     """
-    def append(self, ps_object):
+    def extend(self, *ps_objects):
         """
-        Add the given ps_object to the Page contents.
+        Add the given ps_object(s) to the Page contents.
 
         """
-        self.__dict__.setdefault('_ps_objects', list()).append(ps_object)
+        self.__dict__.setdefault('_ps_objects', list()).extend(ps_objects)
 
     @property
     def ps(self):
