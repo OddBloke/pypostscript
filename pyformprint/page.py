@@ -3,6 +3,9 @@ class Page(object):
     A single page of PostScript output.
 
     """
+
+    PAGE_START_PART = 'page_start'
+
     def extend(self, *ps_objects):
         """
         Add the given ps_object(s) to the Page contents.
@@ -10,10 +13,40 @@ class Page(object):
         """
         self.__dict__.setdefault('_ps_objects', list()).extend(ps_objects)
 
-    @property
-    def ps(self):
+    def header(self):
         """
-        PostScript string representation of this Page object.
+        Return header portion of Page, including any required parts.
+
+        """
+        required_parts = set([self.PAGE_START_PART])  # In all cases
+        if hasattr(self, '_ps_objects'):
+            for ps_object in self._ps_objects:
+                if hasattr(ps_object, 'required_parts'):
+                    required_parts.update(ps_object.required_parts)
+
+        return '\n'.join([self.read_part(name=part)
+                         for part in required_parts]) + '\n'
+
+    def body(self):
+        """
+        PostScript string representation of this Page's objects.
 
         """
         return '\n'.join([ps_object.ps for ps_object in self._ps_objects])
+
+    def footer(self):
+        pass
+
+    def render(self):
+        """
+        Provide full output suitable for printer / PS client to open.
+
+        """
+        return self.header() + self.body() + self.footer()
+
+    def read_part(self, name):
+        """
+        Read in boilerplate page part.
+
+        """
+        pass

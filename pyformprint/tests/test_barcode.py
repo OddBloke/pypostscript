@@ -7,13 +7,13 @@ class Code39BarcodeTestCase(TestCase):
 
     def test_barcode(self):
         """
-        Code39Barcode should have 'barcode' in requires_headers and render ps.
+        Code39Barcode should have 'barcode' in required_parts and render ps.
 
         """
         barcode = Code39Barcode(x_pts=30,
                                 y_pts=500,
                                 chars='Code 39 test')
-        self.assertIn('barcode', barcode.requires_headers)
+        self.assertIn('barcode', barcode.required_parts)
         self.assertEqual(
             barcode.ps,
             '30 500 moveto (Code 39 test) (includecheck includetext)\n'

@@ -3,7 +3,7 @@ from pyformprint import AllIntegerArgumentClass
 
 class Code39Barcode(AllIntegerArgumentClass):
 
-    requires_headers = ['barcode']
+    required_parts = ['barcode']
 
     def __init__(self, x_pts, y_pts, chars):
 

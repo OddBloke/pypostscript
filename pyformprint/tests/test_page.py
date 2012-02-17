@@ -1,5 +1,7 @@
 from unittest2 import TestCase
 
+from mock import Mock, patch
+
 from pyformprint.page import Page
 from pyformprint.shapes import Circle, Rectangle
 from pyformprint.text import TextLine, TimesBoldFont
@@ -9,7 +11,7 @@ class PageTestCase(TestCase):
 
     def test_page_one_object(self):
         """
-        Object appended to Page should render its ps correctly.
+        Object appended to Page should render in its body.
 
         """
         circle = Circle(x_pts=50,
@@ -19,12 +21,12 @@ class PageTestCase(TestCase):
 
         page = Page()
         page.extend(circle)
-        self.assertEqual(page.ps,
+        self.assertEqual(page.body(),
                          circle.ps)
 
     def test_page_many_objects(self):
         """
-        Objects appended to Page should have their ps rendered correctly.
+        Objects appended to Page should render in its body.
 
         """
         circle_1 = Circle(x_pts=50,
@@ -51,9 +53,65 @@ class PageTestCase(TestCase):
                              text='Some Text')
         page = Page()
         page.extend(circle_1, rectangle_1, circle_2, rectangle_2, text_line)
-        self.assertEqual(page.ps,
+        self.assertEqual(page.body(),
                          '\n'.join([shape.ps for shape in (circle_1,
                                                            rectangle_1,
                                                            circle_2,
                                                            rectangle_2,
                                                            text_line)]))
+
+    @patch('pyformprint.page.Page.footer')
+    @patch('pyformprint.page.Page.body')
+    @patch('pyformprint.page.Page.header')
+    def test_page_render_composition(self, header, body, footer):
+        """
+        Page render() method should produce composed output.
+
+        """
+        header.return_value, body.return_value, footer.return_value = \
+            'HEADER', 'BODY', 'FOOTER'
+
+        page = Page()
+        self.assertEqual(page.render(), 'HEADERBODYFOOTER')
+
+    @patch('pyformprint.page.Page.read_part')
+    @patch('pyformprint.page.Page.PAGE_START_PART', 'PAGE_START_PART')
+    def test_header_require_no_parts(self, read_part):
+        """
+        header() should only read_part 'page_start' if no requires_headers.
+
+        """
+        read_part.return_value = 'part_0'
+        page = Page()
+        header = page.header()
+        self.assertEqual(read_part.call_args_list,
+                         [(tuple(), {'name': 'PAGE_START_PART'})])
+        self.assertEqual(header,
+                         'part_0\n')
+
+    @patch('pyformprint.page.Page.read_part')
+    @patch('pyformprint.page.Page.PAGE_START_PART', 'PAGE_START_PART')
+    def test_header_include_parts(self, read_part):
+        """
+        Page.header() should call read_part for appropriate parts.
+
+        """
+        read_part.side_effect = ['part_0', 'part_1', 'part_2', 'part_3']
+        page = Page()
+        ps_object_1 = Mock()
+        ps_object_1.required_parts = ['foo']
+        ps_object_2 = Mock()
+        ps_object_2.required_parts = ['foo', 'bar', 'bang']
+        page.extend(ps_object_1, ps_object_2)
+        header = page.header()
+        # Access to parts is unordered, strictly speaking
+        parts_requested = [kwargs['name'] for args, kwargs in
+                            read_part.call_args_list]
+        self.assertEqual(len(parts_requested), 4)  # No repeat requests
+        self.assertEqual(set(parts_requested),
+                         set(['PAGE_START_PART', 'foo', 'bar', 'bang']))
+        self.assertEqual(header,
+                         'part_0\n'
+                         'part_1\n'
+                         'part_2\n'
+                         'part_3\n')
