@@ -1,3 +1,5 @@
+from re import match
+
 from pyformprint import AllIntegerArgumentClass
 
 
@@ -8,6 +10,10 @@ class Barcode(AllIntegerArgumentClass):
     def __init__(self, x_pts, y_pts, chars):
 
         super(Barcode, self).__init__(x_pts, y_pts)
+
+        if not match(r'^[A-Z0-9]+$', chars):
+            raise ValueError(chars)
+
         self._x_pts, self._y_pts, self._chars = \
             x_pts, y_pts, chars
 
