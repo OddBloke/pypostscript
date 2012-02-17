@@ -1,3 +1,4 @@
+from os.path import dirname, join, split
 from unittest2 import TestCase
 
 from mock import Mock, patch
@@ -130,3 +131,19 @@ class PageTestCase(TestCase):
                          [(tuple(), {'name': 'page_end_part'})])
         self.assertEqual(header,
                          'part_99')  # No newline at end of file
+
+    @patch('pyformprint.page.open')
+    @patch('pyformprint.page.Page.PARTS_DIR', 'parts_dir')
+    def test_read_part(self, open_stmt):
+        """
+        read_part() should retrieve contents of given part file.
+
+        """
+        open_stmt.return_value.read.return_value = 'some file contents'
+        page = Page()
+        part = page.read_part(name='foo')
+        self.assertEqual(part, 'some file contents')
+        root_package_dir = split(dirname(__file__))[0]
+        expected_path = join(root_package_dir, 'parts_dir', 'foo')
+        self.assertEqual(open_stmt.call_args_list,
+                         [((expected_path, 'r'), {})])

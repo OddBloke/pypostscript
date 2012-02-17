@@ -24,7 +24,7 @@ class Code39BarcodeTestCase(TestCase):
 """
     barcode styles /code39 and /itf14
 
-    chars in barcode should be limited to ascii
+    chars in barcode should be limited to ascii and uppercase / numerics only
 
     portrait / landscape layout
 

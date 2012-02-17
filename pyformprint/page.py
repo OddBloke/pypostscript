@@ -1,3 +1,7 @@
+from __builtin__ import open  # For patching in this module's namespace
+from os.path import dirname, join
+
+
 class Page(object):
     """
     A single page of PostScript output.
@@ -6,6 +10,7 @@ class Page(object):
 
     PAGE_END_PART = 'page_end'
     PAGE_START_PART = 'page_start'
+    PARTS_DIR = 'parts'
 
     def extend(self, *ps_objects):
         """
@@ -54,4 +59,11 @@ class Page(object):
         Read in boilerplate page part.
 
         """
-        pass
+        if not hasattr(self, '_root_package_dir'):
+            self._root_package_dir = dirname(__file__)
+
+        part_file = open(join(self._root_package_dir, self.PARTS_DIR, name),
+                         'r')
+        part = part_file.read()
+        part_file.close()
+        return part
