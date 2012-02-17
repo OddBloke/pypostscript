@@ -22,8 +22,6 @@ class Code39BarcodeTestCase(TestCase):
 
 # Tests needed
 """
-    include barcode lib in Page if a barcode is in the mix
-
     barcode styles /code39 and /itf14
 
     chars in barcode should be limited to ascii

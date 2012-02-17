@@ -76,9 +76,9 @@ class PageTestCase(TestCase):
 
     @patch('pyformprint.page.Page.read_part')
     @patch('pyformprint.page.Page.PAGE_START_PART', 'PAGE_START_PART')
-    def test_header_require_no_parts(self, read_part):
+    def test_header_simple(self, read_part):
         """
-        header() should only read_part 'page_start' if no requires_headers.
+        header() should only read page start part if no requires_headers.
 
         """
         read_part.return_value = 'part_0'
@@ -115,3 +115,18 @@ class PageTestCase(TestCase):
                          'part_1\n'
                          'part_2\n'
                          'part_3\n')
+
+    @patch('pyformprint.page.Page.read_part')
+    @patch('pyformprint.page.Page.PAGE_END_PART', 'PAGE_END_PART')
+    def test_footer(self, read_part):
+        """
+        footer() should read page end part.
+
+        """
+        read_part.return_value = 'part_99'
+        page = Page()
+        header = page.footer()
+        self.assertEqual(read_part.call_args_list,
+                         [(tuple(), {'name': 'PAGE_END_PART'})])
+        self.assertEqual(header,
+                         'part_99')  # No newline at end of file

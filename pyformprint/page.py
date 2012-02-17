@@ -4,6 +4,7 @@ class Page(object):
 
     """
 
+    PAGE_END_PART = 'page_end'
     PAGE_START_PART = 'page_start'
 
     def extend(self, *ps_objects):
@@ -35,7 +36,11 @@ class Page(object):
         return '\n'.join([ps_object.ps for ps_object in self._ps_objects])
 
     def footer(self):
-        pass
+        """
+        Footer portion of page.
+
+        """
+        return self.read_part(name=self.PAGE_END_PART)
 
     def render(self):
         """
