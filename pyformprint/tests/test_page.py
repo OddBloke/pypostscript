@@ -75,7 +75,7 @@ class PageTestCase(TestCase):
         self.assertEqual(page.render(), 'HEADERBODYFOOTER')
 
     @patch('pyformprint.page.Page.read_part')
-    @patch('pyformprint.page.Page.PAGE_START_PART', 'PAGE_START_PART')
+    @patch('pyformprint.page.Page.PAGE_START_PART', 'page_start_part')
     def test_header_simple(self, read_part):
         """
         header() should only read page start part if no requires_headers.
@@ -85,12 +85,12 @@ class PageTestCase(TestCase):
         page = Page()
         header = page.header()
         self.assertEqual(read_part.call_args_list,
-                         [(tuple(), {'name': 'PAGE_START_PART'})])
+                         [(tuple(), {'name': 'page_start_part'})])
         self.assertEqual(header,
                          'part_0\n')
 
     @patch('pyformprint.page.Page.read_part')
-    @patch('pyformprint.page.Page.PAGE_START_PART', 'PAGE_START_PART')
+    @patch('pyformprint.page.Page.PAGE_START_PART', 'page_start_part')
     def test_header_include_parts(self, read_part):
         """
         Page.header() should call read_part for appropriate parts.
@@ -109,7 +109,7 @@ class PageTestCase(TestCase):
                             read_part.call_args_list]
         self.assertEqual(len(parts_requested), 4)  # No repeat requests
         self.assertEqual(set(parts_requested),
-                         set(['PAGE_START_PART', 'foo', 'bar', 'bang']))
+                         set(['page_start_part', 'foo', 'bar', 'bang']))
         self.assertEqual(header,
                          'part_0\n'
                          'part_1\n'
@@ -117,7 +117,7 @@ class PageTestCase(TestCase):
                          'part_3\n')
 
     @patch('pyformprint.page.Page.read_part')
-    @patch('pyformprint.page.Page.PAGE_END_PART', 'PAGE_END_PART')
+    @patch('pyformprint.page.Page.PAGE_END_PART', 'page_end_part')
     def test_footer(self, read_part):
         """
         footer() should read page end part.
@@ -127,6 +127,6 @@ class PageTestCase(TestCase):
         page = Page()
         header = page.footer()
         self.assertEqual(read_part.call_args_list,
-                         [(tuple(), {'name': 'PAGE_END_PART'})])
+                         [(tuple(), {'name': 'page_end_part'})])
         self.assertEqual(header,
                          'part_99')  # No newline at end of file
