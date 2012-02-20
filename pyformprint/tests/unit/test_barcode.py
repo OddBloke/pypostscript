@@ -67,4 +67,14 @@ class BarcodeTestCase(TestCase):
     portrait / landscape layout
 
     text box
+
+    Functional tests that produce PostScript that can be loaded elsewhere:
+
+        - portrait / landscape with simple shapes + text lines
+
+        - portrait / landscape with barcode
+
+        - portrait / landscape with textbox
+
+        - portrait / landscape with barcode and textbox
 """

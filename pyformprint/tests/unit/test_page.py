@@ -143,7 +143,7 @@ class PageTestCase(TestCase):
         page = Page()
         part = page.read_part(name='foo')
         self.assertEqual(part, 'some file contents')
-        root_package_dir = split(dirname(__file__))[0]
+        root_package_dir = split(split(dirname(__file__))[0])[0]
         expected_path = join(root_package_dir, 'parts_dir', 'foo')
         self.assertEqual(open_stmt.call_args_list,
                          [((expected_path, 'r'), {})])
