@@ -10,7 +10,7 @@ class Page(object):
 
     PAGE_END_PART = 'page_end'
     PAGE_START_PART = 'page_start'
-    PARTS_DIR = 'parts'
+    PARTS_DIR = 'parts_dir'
 
     def extend(self, *ps_objects):
         """
