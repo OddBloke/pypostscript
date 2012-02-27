@@ -15,8 +15,8 @@ class PageTestCase(TestCase):
         Object appended to Page should render in its body.
 
         """
-        circle = Circle(x_pts=50,
-                        y_pts=100,
+        circle = Circle(centre_x_pts=50,
+                        centre_y_pts=100,
                         radius_pts=50,
                         line_width_pts=2)
 
@@ -30,8 +30,8 @@ class PageTestCase(TestCase):
         Objects appended to Page should render in its body.
 
         """
-        circle_1 = Circle(x_pts=50,
-                          y_pts=100,
+        circle_1 = Circle(centre_x_pts=50,
+                          centre_y_pts=100,
                           radius_pts=50,
                           line_width_pts=2)
         rectangle_1 = Rectangle(x_pts=300,
@@ -39,8 +39,8 @@ class PageTestCase(TestCase):
                                 height_pts=50,
                                 width_pts=75,
                                 line_width_pts=5)
-        circle_2 = Circle(x_pts=150,
-                          y_pts=200,
+        circle_2 = Circle(centre_x_pts=150,
+                          centre_y_pts=200,
                           radius_pts=20,
                           line_width_pts=3)
         rectangle_2 = Rectangle(x_pts=100,

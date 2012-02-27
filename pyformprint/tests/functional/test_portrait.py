@@ -25,8 +25,8 @@ def sample_page():
                           width_pts=170,
                           height_pts=185,
                           line_width_pts=2))
-    page.extend(Circle(x_pts=40,
-                       y_pts=150,
+    page.extend(Circle(centre_x_pts=80,
+                       centre_y_pts=150,
                        radius_pts=72,
                        line_width_pts=1))
     return page

@@ -11,7 +11,7 @@ class CircleTestCase(TestCase):
         Normal Circle should render correct ps.
 
         """
-        circle = Circle(x_pts=306, y_pts=396, radius_pts=144,
+        circle = Circle(centre_x_pts=306, centre_y_pts=396, radius_pts=144,
                         line_width_pts=3)
         self.assertEqual(circle.ps,
                          'newpath 306 396 144 0 360 arc\n'
@@ -19,31 +19,31 @@ class CircleTestCase(TestCase):
                          '3 setlinewidth\n'
                          'stroke\n')
 
-    def test_circle_validation_x_pts(self):
+    def test_circle_validation_centre_x_pts(self):
         """
-        Bad x_pts values in Circle should raise error.
+        Bad centre_x_pts values in Circle should raise error.
 
         """
         for bad_x_pts in (1.2, Decimal(3), -1, 'hello'):
             self.assertRaises(
                 ValueError,
                 Circle,
-                x_pts=bad_x_pts,
-                y_pts=396,
+                centre_x_pts=bad_x_pts,
+                centre_y_pts=396,
                 radius_pts=144,
                 line_width_pts=3)
 
-    def test_circle_validation_y_pts(self):
+    def test_circle_validation_centre_y_pts(self):
         """
-        Bad y_pts values in Circle should raise error.
+        Bad centre_y_pts values in Circle should raise error.
 
         """
         for bad_y_pts in (1.2, Decimal(3), -1, 'hello'):
             self.assertRaises(
                 ValueError,
                 Circle,
-                x_pts=306,
-                y_pts=bad_y_pts,
+                centre_x_pts=306,
+                centre_y_pts=bad_y_pts,
                 radius_pts=144,
                 line_width_pts=3)
 
@@ -56,8 +56,8 @@ class CircleTestCase(TestCase):
             self.assertRaises(
                 ValueError,
                 Circle,
-                x_pts=306,
-                y_pts=396,
+                centre_x_pts=306,
+                centre_y_pts=396,
                 radius_pts=bad_radius_pts,
                 line_width_pts=3)
 
@@ -70,7 +70,7 @@ class CircleTestCase(TestCase):
             self.assertRaises(
                 ValueError,
                 Circle,
-                x_pts=306,
-                y_pts=396,
+                centre_x_pts=306,
+                centre_y_pts=396,
                 radius_pts=144,
                 line_width_pts=bad_line_width_pts)

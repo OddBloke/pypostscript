@@ -6,11 +6,15 @@ class Circle(AllIntegerArgumentClass):
     Generic representation of a circle.
 
     """
-    def __init__(self, x_pts, y_pts, radius_pts, line_width_pts):
-        super(Circle, self).__init__(x_pts, y_pts, radius_pts, line_width_pts)
+    def __init__(self, centre_x_pts, centre_y_pts, radius_pts, line_width_pts):
+        super(Circle, self).__init__(centre_x_pts,
+                                     centre_y_pts,
+                                     radius_pts,
+                                     line_width_pts)
 
-        self.x_pts, self.y_pts, self.radius_pts, self.line_width_pts = \
-            x_pts, y_pts, radius_pts, line_width_pts
+        self.centre_x_pts, self.centre_y_pts, self.radius_pts, \
+            self.line_width_pts = \
+                centre_x_pts, centre_y_pts, radius_pts, line_width_pts
 
     @property
     def ps(self):
@@ -18,13 +22,14 @@ class Circle(AllIntegerArgumentClass):
         PostScript string representation of this object.
 
         """
-        return ('newpath {x_pts} {y_pts} {radius_pts} 0 360 arc\n'
-                'closepath\n'
-                '{line_width_pts} setlinewidth\n'
-                'stroke\n'.format(x_pts=self.x_pts,
-                                  y_pts=self.y_pts,
-                                  radius_pts=self.radius_pts,
-                                  line_width_pts=self.line_width_pts))
+        return (
+            'newpath {centre_x_pts} {centre_y_pts} {radius_pts} 0 360 arc\n'
+            'closepath\n'
+            '{line_width_pts} setlinewidth\n'
+            'stroke\n'.format(centre_x_pts=self.centre_x_pts,
+                              centre_y_pts=self.centre_y_pts,
+                              radius_pts=self.radius_pts,
+                              line_width_pts=self.line_width_pts))
 
 
 class Rectangle(AllIntegerArgumentClass):
