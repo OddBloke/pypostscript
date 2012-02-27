@@ -1,4 +1,4 @@
-from pyformprint import AllIntegerArgumentClass
+from pypostscript import AllIntegerArgumentClass
 
 
 class Circle(AllIntegerArgumentClass):

@@ -1,7 +1,7 @@
 from decimal import Decimal
 from unittest2 import TestCase
 
-from pyformprint.shapes import Rectangle
+from pypostscript.shapes import Rectangle
 
 
 class RectangleTestCase(TestCase):

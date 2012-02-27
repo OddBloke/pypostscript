@@ -1,7 +1,7 @@
 from decimal import Decimal
 from unittest2 import TestCase
 
-from pyformprint.shapes import Circle
+from pypostscript.shapes import Circle
 
 
 class CircleTestCase(TestCase):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from unittest2 import TestCase
 
-from pyformprint.barcode import Code39Barcode, Code93Barcode
+from pypostscript.barcode import Code39Barcode, Code93Barcode
 
 
 class Code39BarcodeTestCase(TestCase):

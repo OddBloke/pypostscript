@@ -2,7 +2,7 @@
 from decimal import Decimal
 from unittest2 import TestCase
 
-from pyformprint.text import HelveticaPlainFont, TextLine
+from pypostscript.text import HelveticaPlainFont, TextLine
 
 
 class TextLineTestCase(TestCase):

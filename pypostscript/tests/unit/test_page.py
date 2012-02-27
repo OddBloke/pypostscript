@@ -3,9 +3,9 @@ from unittest2 import TestCase
 
 from mock import Mock, patch
 
-from pyformprint.page import Page
-from pyformprint.shapes import Circle, Rectangle
-from pyformprint.text import TextLine, TimesBoldFont
+from pypostscript.page import Page
+from pypostscript.shapes import Circle, Rectangle
+from pypostscript.text import TextLine, TimesBoldFont
 
 
 class PageTestCase(TestCase):
@@ -61,9 +61,9 @@ class PageTestCase(TestCase):
                                                            rectangle_2,
                                                            text_line)]))
 
-    @patch('pyformprint.page.Page.footer')
-    @patch('pyformprint.page.Page.body')
-    @patch('pyformprint.page.Page.header')
+    @patch('pypostscript.page.Page.footer')
+    @patch('pypostscript.page.Page.body')
+    @patch('pypostscript.page.Page.header')
     def test_page_render_composition(self, header, body, footer):
         """
         Page render() method should produce composed output.
@@ -75,8 +75,8 @@ class PageTestCase(TestCase):
         page = Page()
         self.assertEqual(page.render(), 'HEADERBODYFOOTER')
 
-    @patch('pyformprint.page.Page.read_part')
-    @patch('pyformprint.page.Page.PAGE_START_PART', 'page_start_part')
+    @patch('pypostscript.page.Page.read_part')
+    @patch('pypostscript.page.Page.PAGE_START_PART', 'page_start_part')
     def test_header_simple(self, read_part):
         """
         header() should only read page start part if no requires_headers.
@@ -90,8 +90,8 @@ class PageTestCase(TestCase):
         self.assertEqual(header,
                          'part_0\n')
 
-    @patch('pyformprint.page.Page.read_part')
-    @patch('pyformprint.page.Page.PAGE_START_PART', 'page_start_part')
+    @patch('pypostscript.page.Page.read_part')
+    @patch('pypostscript.page.Page.PAGE_START_PART', 'page_start_part')
     def test_header_include_parts(self, read_part):
         """
         Page.header() should call read_part for appropriate parts.
@@ -117,8 +117,8 @@ class PageTestCase(TestCase):
                          'part_2\n'
                          'part_3\n')
 
-    @patch('pyformprint.page.Page.read_part')
-    @patch('pyformprint.page.Page.PAGE_END_PART', 'page_end_part')
+    @patch('pypostscript.page.Page.read_part')
+    @patch('pypostscript.page.Page.PAGE_END_PART', 'page_end_part')
     def test_footer(self, read_part):
         """
         footer() should read page end part.
@@ -132,8 +132,8 @@ class PageTestCase(TestCase):
         self.assertEqual(header,
                          'part_99')  # No newline at end of file
 
-    @patch('pyformprint.page.open')
-    @patch('pyformprint.page.Page.PARTS_DIR', 'parts_dir')
+    @patch('pypostscript.page.open')
+    @patch('pypostscript.page.Page.PARTS_DIR', 'parts_dir')
     def test_read_part(self, open_stmt):
         """
         read_part() should retrieve contents of given part file.

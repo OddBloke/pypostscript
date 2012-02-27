@@ -1,7 +1,7 @@
 from decimal import Decimal
 from unittest2 import TestCase
 
-from pyformprint.text import (HelveticaBoldFont, HelveticaPlainFont,
+from pypostscript.text import (HelveticaBoldFont, HelveticaPlainFont,
                               TimesBoldFont, TimesPlainFont)
 
 

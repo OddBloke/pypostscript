@@ -1,7 +1,7 @@
-from pyformprint.barcode import Code39Barcode, Code93Barcode
-from pyformprint.shapes import Circle, Rectangle
-from pyformprint.text import HelveticaBoldFont, TextLine, TimesPlainFont
-from pyformprint.page import Page
+from pypostscript.barcode import Code39Barcode, Code93Barcode
+from pypostscript.shapes import Circle, Rectangle
+from pypostscript.text import HelveticaBoldFont, TextLine, TimesPlainFont
+from pypostscript.page import Page
 
 
 def sample_page():

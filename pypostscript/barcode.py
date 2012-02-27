@@ -1,6 +1,6 @@
 from re import match
 
-from pyformprint import AllIntegerArgumentClass
+from pypostscript import AllIntegerArgumentClass
 
 
 class Barcode(AllIntegerArgumentClass):

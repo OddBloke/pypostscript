@@ -1,6 +1,6 @@
 import re
 
-from pyformprint import AllIntegerArgumentClass
+from pypostscript import AllIntegerArgumentClass
 
 
 class Font(AllIntegerArgumentClass):
