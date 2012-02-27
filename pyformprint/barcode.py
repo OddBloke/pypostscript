@@ -34,6 +34,6 @@ class Code39Barcode(Barcode):
     BARCODE_CODE = 'code39'
 
 
-class ITF14Barcode(Barcode):
+class Code93Barcode(Barcode):
 
-    BARCODE_CODE = 'itf14'
+    BARCODE_CODE = 'code93'

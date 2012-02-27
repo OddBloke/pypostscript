@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from unittest2 import TestCase
 
-from pyformprint.barcode import Code39Barcode, ITF14Barcode
+from pyformprint.barcode import Code39Barcode, Code93Barcode
 
 
 class Code39BarcodeTestCase(TestCase):
@@ -21,21 +21,21 @@ class Code39BarcodeTestCase(TestCase):
             '/code39 /uk.co.terryburton.bwipp findresource exec\n')
 
 
-class ITF14BarcodeTestCase(TestCase):
+class Code93BarcodeTestCase(TestCase):
 
     def test_barcode(self):
         """
-        ITF14Barcode should have 'barcode' in required_parts and render ps.
+        Code93Barcode should have 'barcode' in required_parts and render ps.
 
         """
-        barcode = ITF14Barcode(x_pts=300,
-                               y_pts=50,
-                               chars='ITF14TEST')
+        barcode = Code93Barcode(x_pts=300,
+                                y_pts=50,
+                                chars='CODE93TEST')
         self.assertIn('barcode', barcode.required_parts)
         self.assertEqual(
             barcode.ps,
-            '300 50 moveto (ITF14TEST) (includecheck includetext)\n'
-            '/itf14 /uk.co.terryburton.bwipp findresource exec\n')
+            '300 50 moveto (CODE93TEST) (includecheck includetext)\n'
+            '/code93 /uk.co.terryburton.bwipp findresource exec\n')
 
 
 class BarcodeTestCase(TestCase):
