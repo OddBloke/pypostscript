@@ -4,13 +4,29 @@ pypostscript
 Create A4 Portrait PostScript output with Python Objects
 
 Version 0.1:
-    Portrait A4 only
-    4 Font choices
-    TextLines
-    Code39Barcodes
-    Code93Barcodes
-    Circles
-    Rectangles
+
+    - Portrait A4 only
+
+    - 4 Font choices
+
+    - Text Lines
+
+    - Barcodes:
+
+        - Code 39
+
+        - Code 93
+
+    - Circles
+
+    - Rectangles
+
+
+Source
+======
+
+Source at: https://github.com/mhenwood/pypostscript/
+
 
 Usage
 =====
