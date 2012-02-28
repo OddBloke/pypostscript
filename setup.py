@@ -1,3 +1,4 @@
+import os
 from setuptools import setup
 
 def read(fname):
@@ -5,10 +6,10 @@ def read(fname):
 
 setup(
     name='pypostscript',
-    version='0.1',
+    version='0.1.1',
     author='Mark Henwood',
     author_email='mark@mcbh.co.uk',
-    description='Create PostScript page using Python objects',
+    description='Create PostScript page (including barcodes) using Python objects',
     license='MIT',
     keywords='postscript printing barcode',
     url='http://pypi.python.org/pypi/pypostscript',
