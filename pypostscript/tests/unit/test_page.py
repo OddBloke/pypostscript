@@ -165,10 +165,3 @@ class TestA4PortraitPage(TestCase):
 
         """
         self.assertEqual('page_start', A4PortraitPage().PAGE_START_PART)
-
-    def test_header(self):
-        """
-        header() shouldn't raise an exception.
-
-        """
-        A4PortraitPage().header()
