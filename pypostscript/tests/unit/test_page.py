@@ -10,6 +10,14 @@ from pypostscript.text import TextLine, TimesBoldFont
 
 class PageTestCase(TestCase):
 
+    def test_page_PAGE_START_PART(self):
+        """
+        PAGE_START_PART needs to be overridden by sub-classes.
+
+        """
+        with self.assertRaises(NotImplementedError):
+            Page().PAGE_START_PART
+
     def test_page_one_object(self):
         """
         Object appended to Page should render in its body.

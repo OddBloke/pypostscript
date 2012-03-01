@@ -9,8 +9,11 @@ class Page(object):
     """
 
     PAGE_END_PART = 'page_end'
-    PAGE_START_PART = 'page_start'
     PARTS_DIR = 'parts_dir'
+
+    @property
+    def PAGE_START_PART(self):
+        raise NotImplementedError("Page should not be instantiated directly.")
 
     def extend(self, *ps_objects):
         """
