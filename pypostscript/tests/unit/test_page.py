@@ -10,13 +10,13 @@ from pypostscript.text import TextLine, TimesBoldFont
 
 class PageTestCase(TestCase):
 
-    def test_page_PAGE_START_PART(self):
+    def test_PAGE_START_TEXT(self):
         """
-        PAGE_START_PART needs to be overridden by sub-classes.
+        PAGE_START_TEXT needs to be provided in sub-classes.
 
         """
         with self.assertRaises(NotImplementedError):
-            Page().PAGE_START_PART
+            Page().PAGE_START_TEXT
 
     def test_page_one_object(self):
         """
@@ -84,28 +84,26 @@ class PageTestCase(TestCase):
         self.assertEqual(page.render(), 'HEADERBODYFOOTER')
 
     @patch('pypostscript.page.Page.read_part')
-    @patch('pypostscript.page.Page.PAGE_START_PART', 'page_start_part')
+    @patch('pypostscript.page.Page.PAGE_START_TEXT', 'MockPageStart')
     def test_header_simple(self, read_part):
         """
-        header() should only read page start part if no requires_headers.
+        header() should output only page start text if no requires_headers.
 
         """
-        read_part.return_value = 'part_0'
         page = Page()
         header = page.header()
-        self.assertEqual(read_part.call_args_list,
-                         [(tuple(), {'name': 'page_start_part'})])
+        self.assertEqual(0, read_part.call_count)
         self.assertEqual(header,
-                         'part_0\n')
+                         'MockPageStart\n')
 
     @patch('pypostscript.page.Page.read_part')
-    @patch('pypostscript.page.Page.PAGE_START_PART', 'page_start_part')
+    @patch('pypostscript.page.Page.PAGE_START_TEXT', 'MockPageStart')
     def test_header_include_parts(self, read_part):
         """
         Page.header() should call read_part for appropriate parts.
 
         """
-        read_part.side_effect = ['part_0', 'part_1', 'part_2', 'part_3']
+        read_part.side_effect = ['part_1', 'part_2', 'part_3']
         page = Page()
         ps_object_1 = Mock()
         ps_object_1.required_parts = ['foo']
@@ -116,11 +114,11 @@ class PageTestCase(TestCase):
         # Access to parts is unordered, strictly speaking
         parts_requested = [kwargs['name'] for args, kwargs in
                             read_part.call_args_list]
-        self.assertEqual(len(parts_requested), 4)  # No repeat requests
+        self.assertEqual(len(parts_requested), 3)  # No repeat requests
         self.assertEqual(set(parts_requested),
-                         set(['page_start_part', 'foo', 'bar', 'bang']))
+                         set(['foo', 'bar', 'bang']))
         self.assertEqual(header,
-                         'part_0\n'
+                         'MockPageStart\n'
                          'part_1\n'
                          'part_2\n'
                          'part_3\n')
@@ -159,10 +157,16 @@ class PageTestCase(TestCase):
 
 class TestA4PortraitPage(TestCase):
 
-    def test_page_PAGE_START_PART(self):
+    def test_PAGE_START_TEXT(self):
         """
-        PAGE_START_PART should be correct.
+        PAGE_START_TEXT should be correct.
 
         """
-        self.assertEqual('page_start_a4portrait',
-                         A4PortraitPage().PAGE_START_PART)
+        self.assertEqual(
+            "\n".join(
+                ["%!PS−Adobe−2.0",
+                 "%%BoundingBox: 0 0 595.28 841.89 % A4 %",
+                 "%%Creator: pypostscript",
+                 "%%EndComments",
+                 ""]),
+            A4PortraitPage.PAGE_START_TEXT)

@@ -1,5 +1,13 @@
+# coding=UTF-8
 from __builtin__ import open  # For patching in this module's namespace
 from os.path import dirname, join
+
+A4_PORTRAIT_START = """\
+%!PS−Adobe−2.0
+%%BoundingBox: 0 0 595.28 841.89 % A4 %
+%%Creator: pypostscript
+%%EndComments
+"""
 
 
 class Page(object):
@@ -12,7 +20,7 @@ class Page(object):
     PARTS_DIR = 'parts_dir'
 
     @property
-    def PAGE_START_PART(self):
+    def PAGE_START_TEXT(self):
         raise NotImplementedError("Page should not be instantiated directly.")
 
     def extend(self, *ps_objects):
@@ -27,14 +35,15 @@ class Page(object):
         Return header portion of Page, including any required parts.
 
         """
-        required_parts = set([self.PAGE_START_PART])  # In all cases
+        required_parts = set()  # In all cases
         if hasattr(self, '_ps_objects'):
             for ps_object in self._ps_objects:
                 if hasattr(ps_object, 'required_parts'):
                     required_parts.update(ps_object.required_parts)
 
-        return '\n'.join([self.read_part(name=part)
-                         for part in required_parts]) + '\n'
+        return '\n'.join([self.PAGE_START_TEXT] +
+                         [self.read_part(name=part)
+                            for part in required_parts]) + '\n'
 
     def body(self):
         """
