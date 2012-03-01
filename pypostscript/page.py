@@ -9,8 +9,11 @@ class Page(object):
     """
 
     PAGE_END_PART = 'page_end'
-    PAGE_START_PART = 'page_start'
     PARTS_DIR = 'parts_dir'
+
+    @property
+    def PAGE_START_PART(self):
+        raise NotImplementedError("Page should not be instantiated directly.")
 
     def extend(self, *ps_objects):
         """
@@ -67,3 +70,8 @@ class Page(object):
         part = part_file.read()
         part_file.close()
         return part
+
+
+class A4PortraitPage(Page):
+
+    PAGE_START_PART = 'page_start'

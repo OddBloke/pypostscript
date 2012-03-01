@@ -3,12 +3,20 @@ from unittest2 import TestCase
 
 from mock import Mock, patch
 
-from pypostscript.page import Page
+from pypostscript.page import A4PortraitPage, Page
 from pypostscript.shapes import Circle, Rectangle
 from pypostscript.text import TextLine, TimesBoldFont
 
 
 class PageTestCase(TestCase):
+
+    def test_page_PAGE_START_PART(self):
+        """
+        PAGE_START_PART needs to be overridden by sub-classes.
+
+        """
+        with self.assertRaises(NotImplementedError):
+            Page().PAGE_START_PART
 
     def test_page_one_object(self):
         """
@@ -147,3 +155,20 @@ class PageTestCase(TestCase):
         expected_path = join(root_package_dir, 'parts_dir', 'foo')
         self.assertEqual(open_stmt.call_args_list,
                          [((expected_path, 'r'), {})])
+
+
+class TestA4PortraitPage(TestCase):
+
+    def test_page_PAGE_START_PART(self):
+        """
+        PAGE_START_PART should be correct.
+
+        """
+        self.assertEqual('page_start', A4PortraitPage().PAGE_START_PART)
+
+    def test_header(self):
+        """
+        header() shouldn't raise an exception.
+
+        """
+        A4PortraitPage().header()

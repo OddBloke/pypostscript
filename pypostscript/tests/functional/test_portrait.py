@@ -1,11 +1,11 @@
 from pypostscript.barcode import Code39Barcode, Code93Barcode
 from pypostscript.shapes import Circle, Rectangle
 from pypostscript.text import HelveticaBoldFont, TextLine, TimesPlainFont
-from pypostscript.page import Page
+from pypostscript.page import A4PortraitPage
 
 
 def sample_page():
-    page = Page()
+    page = A4PortraitPage()
     page.extend(TextLine(x_pts=40,
                          y_pts=740,
                          font=HelveticaBoldFont(size_pts=22),
