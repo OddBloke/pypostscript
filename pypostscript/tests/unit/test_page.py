@@ -19,14 +19,15 @@ class PageTestCase(TestCase):
         with self.assertRaises(NotImplementedError):
             Page().PAGE_START_TEXT
 
-    @patch('pypostscript.page.START_TEXT_TEMPLATE', '{width}{height}')
+    @patch('pypostscript.page.START_TEXT_TEMPLATE', '{width} {height}')
+    @patch('pypostscript.page.MM_TO_INCHES', 0.5)
     def test_from_dimensions(self):
         """
         Page.from_dimensions should set PAGE_START_TEXT.
 
         """
-        x = Page.from_dimensions('Mock', 'Dimensions')
-        self.assertEqual('MockDimensions', x.PAGE_START_TEXT)
+        x = Page.from_dimensions(200, 400)
+        self.assertEqual('7200.0 14400.0', x.PAGE_START_TEXT)
         self.assertIsInstance(x(), Page)
 
     def test_page_one_object(self):

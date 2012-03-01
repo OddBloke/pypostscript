@@ -10,6 +10,9 @@ START_TEXT_TEMPLATE = """\
 """
 
 
+MM_TO_INCHES = 0.0393700787
+
+
 class Page(object):
     """
     A single page of PostScript output.
@@ -21,10 +24,18 @@ class Page(object):
 
     @staticmethod
     def from_dimensions(width, height):
+        """
+        Return a Page sub-class with the given width and height (in mm).
+
+        """
         class NewPage(Page):
             pass
-        NewPage.PAGE_START_TEXT = START_TEXT_TEMPLATE.format(width=width,
-                                                             height=height)
+        _mm_to_dots = lambda x: round(x * MM_TO_INCHES * 72, 2)
+        width_dots = _mm_to_dots(width)
+        height_dots = _mm_to_dots(height)
+        NewPage.PAGE_START_TEXT = START_TEXT_TEMPLATE.format(
+                                                        width=width_dots,
+                                                        height=height_dots)
         return NewPage
 
     @property
