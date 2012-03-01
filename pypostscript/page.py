@@ -19,6 +19,13 @@ class Page(object):
     PAGE_END_PART = 'page_end'
     PARTS_DIR = 'parts_dir'
 
+    @staticmethod
+    def from_text(page_start_text):
+        class NewPage(Page):
+            pass
+        NewPage.PAGE_START_TEXT = page_start_text
+        return NewPage
+
     @property
     def PAGE_START_TEXT(self):
         raise NotImplementedError("Page should not be instantiated directly.")
@@ -81,6 +88,4 @@ class Page(object):
         return part
 
 
-class A4PortraitPage(Page):
-
-    PAGE_START_PART = 'page_start_a4portrait'
+A4PortraitPage = Page.from_text(A4_PORTRAIT_START)

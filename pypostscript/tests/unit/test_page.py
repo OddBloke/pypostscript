@@ -1,3 +1,4 @@
+# coding=UTF-8
 from os.path import dirname, join, split
 from unittest2 import TestCase
 
@@ -17,6 +18,15 @@ class PageTestCase(TestCase):
         """
         with self.assertRaises(NotImplementedError):
             Page().PAGE_START_TEXT
+
+    def test_from_text(self):
+        """
+        Page.from_text should set PAGE_START_TEXT.
+
+        """
+        x = Page.from_text('MockStartText')
+        self.assertEqual('MockStartText', x.PAGE_START_TEXT)
+        self.assertIsInstance(x(), Page)
 
     def test_page_one_object(self):
         """
