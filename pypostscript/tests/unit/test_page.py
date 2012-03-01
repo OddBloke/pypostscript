@@ -19,13 +19,14 @@ class PageTestCase(TestCase):
         with self.assertRaises(NotImplementedError):
             Page().PAGE_START_TEXT
 
-    def test_from_text(self):
+    @patch('pypostscript.page.START_TEXT_TEMPLATE', '{width}{height}')
+    def test_from_dimensions(self):
         """
-        Page.from_text should set PAGE_START_TEXT.
+        Page.from_dimensions should set PAGE_START_TEXT.
 
         """
-        x = Page.from_text('MockStartText')
-        self.assertEqual('MockStartText', x.PAGE_START_TEXT)
+        x = Page.from_dimensions('Mock', 'Dimensions')
+        self.assertEqual('MockDimensions', x.PAGE_START_TEXT)
         self.assertIsInstance(x(), Page)
 
     def test_page_one_object(self):
@@ -175,7 +176,7 @@ class TestA4PortraitPage(TestCase):
         self.assertEqual(
             "\n".join(
                 ["%!PS−Adobe−2.0",
-                 "%%BoundingBox: 0 0 595.28 841.89 % A4 %",
+                 "%%BoundingBox: 0 0 595.28 841.89 %",
                  "%%Creator: pypostscript",
                  "%%EndComments",
                  ""]),

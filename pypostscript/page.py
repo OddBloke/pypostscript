@@ -2,9 +2,9 @@
 from __builtin__ import open  # For patching in this module's namespace
 from os.path import dirname, join
 
-A4_PORTRAIT_START = """\
+START_TEXT_TEMPLATE = """\
 %!PS−Adobe−2.0
-%%BoundingBox: 0 0 595.28 841.89 % A4 %
+%%BoundingBox: 0 0 {width} {height} %
 %%Creator: pypostscript
 %%EndComments
 """
@@ -20,10 +20,11 @@ class Page(object):
     PARTS_DIR = 'parts_dir'
 
     @staticmethod
-    def from_text(page_start_text):
+    def from_dimensions(width, height):
         class NewPage(Page):
             pass
-        NewPage.PAGE_START_TEXT = page_start_text
+        NewPage.PAGE_START_TEXT = START_TEXT_TEMPLATE.format(width=width,
+                                                             height=height)
         return NewPage
 
     @property
@@ -88,4 +89,4 @@ class Page(object):
         return part
 
 
-A4PortraitPage = Page.from_text(A4_PORTRAIT_START)
+A4PortraitPage = Page.from_dimensions(595.28, 841.89)
