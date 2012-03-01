@@ -164,4 +164,5 @@ class TestA4PortraitPage(TestCase):
         PAGE_START_PART should be correct.
 
         """
-        self.assertEqual('page_start', A4PortraitPage().PAGE_START_PART)
+        self.assertEqual('page_start_a4portrait',
+                         A4PortraitPage().PAGE_START_PART)

@@ -74,4 +74,4 @@ class Page(object):
 
 class A4PortraitPage(Page):
 
-    PAGE_START_PART = 'page_start'
+    PAGE_START_PART = 'page_start_a4portrait'
