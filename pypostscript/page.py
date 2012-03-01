@@ -70,3 +70,8 @@ class Page(object):
         part = part_file.read()
         part_file.close()
         return part
+
+
+class A4PortraitPage(Page):
+
+    PAGE_START_PART = 'page_start'
